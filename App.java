@@ -8,22 +8,18 @@ public static void main (String args[]) throws SQLException, IOException {
     } catch (ClassNotFoundException x) {
         System.out.println("Driver could not be loaded.");
     }
-    String dbacct, passwrd, name;
-    String grade;
+    String dbacct, passwrd, name, grade;
     int credit;
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // BufferedReader for input
-    //dbacct = readEntry("Enter database account: ");
     System.out.println("Enter database account: ");
     dbacct = br.readLine();
-    //passwrd = readEntry("Enter password: ", br);
     System.out.println("Enter password: ");
     passwrd = br.readLine();
-    //Connection conn = DriverManager.getConnection("jdbc:oracle:thin:"+dbacct+"/"+passwrd);
     
     Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", dbacct, passwrd);
     String stmt1 = "select G.Grade, C.Credit_hours from STUDENT S, GRADE_REPORT G, SECTION SEC, COURSE C where G.Student_number=S.Student_number AND G.Section_identifier=SEC.Section_identifier AND SEC.Course_number=C.Course_number AND S.Name=?";
     PreparedStatement p = conn.prepareStatement(stmt1);
-    //name = readEntry("Please enter your name: ");
+    
     System.out.println("Please enter your name: ");
     name = br.readLine();
     p.clearParameters();
